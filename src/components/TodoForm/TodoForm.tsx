@@ -9,9 +9,12 @@ interface TodoFormProps {
 const TodoForm = ({ onSubmit }: TodoFormProps) => {
   const {
     register,
+    reset,
     formState: { errors, isSubmitSuccessful },
     handleSubmit,
   } = useForm<TodoFormData>({ resolver: zodResolver(schema) });
+
+  isSubmitSuccessful && reset();
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
