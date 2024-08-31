@@ -2,17 +2,25 @@ import { useForm } from "react-hook-form";
 import { TodoFormData, schema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+type FormType = "CREATE" | "EDIT";
+
 interface TodoFormProps {
+  formType?: FormType;
   onSubmit: (data: TodoFormData) => unknown;
+  defaultValues?: TodoFormData;
 }
 
-const TodoForm = ({ onSubmit }: TodoFormProps) => {
+const TodoForm = ({
+  formType = "CREATE",
+  defaultValues = { title: "", category: "" },
+  onSubmit,
+}: TodoFormProps) => {
   const {
     register,
     reset,
     formState: { errors, isSubmitSuccessful },
     handleSubmit,
-  } = useForm<TodoFormData>({ resolver: zodResolver(schema) });
+  } = useForm<TodoFormData>({ resolver: zodResolver(schema), defaultValues });
 
   isSubmitSuccessful && reset();
   return (

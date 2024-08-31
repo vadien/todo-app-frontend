@@ -34,6 +34,20 @@ export const getAllTodos = async () => {
   return (await response.json()) as TodoResponse[];
 };
 
+export const updateTodoById = async (id: number, data: TodoFormData) => {
+  const response = await fetch(`${baseUrl}/todos/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error("Failed to update");
+  }
+  return (await response.json()) as TodoResponse;
+};
+
 export const deleteTodoById = async (id: number) => {
   const response = await fetch(`${baseUrl}/todos/${id}`, {
     method: "DELETE",
