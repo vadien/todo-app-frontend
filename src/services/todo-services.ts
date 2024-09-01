@@ -7,12 +7,14 @@ export interface TodoResponse {
   createdAt: string;
   updatedAt: string;
   title: string;
-  category: string;
+  category: { id: number; createdAt: string; updatedAt: string; name: string };
   dueAt: string;
   archived: boolean;
 }
 
 export const createTodo = async (data: TodoFormData) => {
+  console.log(data);
+  console.log(JSON.stringify(data));
   const response = await fetch(`${baseUrl}/todos`, {
     method: "POST",
     body: JSON.stringify(data),

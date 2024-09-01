@@ -7,20 +7,39 @@ import {
   getAllTodos,
   TodoResponse,
 } from "../../services/todo-services";
+import {
+  CategoryResponse,
+  getAllCategories,
+} from "../../services/category-services";
 import TodoCard from "../../components/TodoCard/TodoCard";
 
 const TodoListContainer = () => {
   const [todos, setTodos] = useState<TodoResponse[]>([]);
+  const [categories, setCategories] = useState<CategoryResponse[]>([]);
 
-  const onSubmit = async (data: TodoFormData) => {
-    createTodo(data).catch((e) => console.log(e));
+  const onTodoSubmit = async (data: TodoFormData) => {
+    console.log(data);
+    createTodo(data)
+      // .then((data) => setTodos([...todos, data]))
+      .catch((e) => console.log(e));
   };
 
   useEffect(() => {
     getAllTodos()
       .then((data) => setTodos(data))
       .catch((error) => console.log(error));
+    getAllCategories()
+      .then((data) => setCategories(data))
+      .catch((error) => console.log(error));
   }, []);
+
+  // useEffect(() => {
+  //   getAllCategories()
+  //     .then((data) => setCategories(data))
+  //     .catch((error) => console.log(error));
+  // }, []);
+
+  console.log(todos);
 
   const onDelete = async (id: number) => {
     const isDeleted = await deleteTodoById(id).catch((e: any) => {
@@ -36,9 +55,14 @@ const TodoListContainer = () => {
   return (
     <div>
       <div className="titleText">TODO</div>
-      <TodoForm onSubmit={onSubmit} />
+      <TodoForm onTodoSubmit={onTodoSubmit} categories={categories} />
       {todos.map((todo) => (
-        <TodoCard key={todo.id} todo={todo} onDelete={onDelete} />
+        <TodoCard
+          key={todo.id}
+          todo={todo}
+          onDelete={onDelete}
+          categories={categories}
+        />
       ))}
     </div>
   );

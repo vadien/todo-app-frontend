@@ -1,15 +1,22 @@
 import { useEffect } from "react";
+import { createCategory, getAllCategories } from "./services/category-services";
 import TodoListContainer from "./containers/TodoListContainer/TodoListContainer";
-import { getAllTodos } from "./services/todo-services";
+import CategoryForm from "./components/CategoryForm/CategoryForm";
+import { CategoryFormData } from "./components/CategoryForm/schema";
 
 function App() {
-  console.log(import.meta.env.VITE_APP_API_BASE_URL);
   useEffect(() => {
-    getAllTodos().then(console.log).catch(console.error);
-  });
+    getAllCategories().then(console.log).catch(console.error);
+  }, []);
+
+  const onCategorySubmit = (data: CategoryFormData) => {
+    createCategory(data).catch((e) => console.log(e));
+  };
+
   return (
     <>
       <h1>Hello World!</h1>
+      <CategoryForm onCategorySubmit={onCategorySubmit} />
       <TodoListContainer />
     </>
   );

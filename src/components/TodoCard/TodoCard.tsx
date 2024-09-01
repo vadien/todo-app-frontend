@@ -5,14 +5,16 @@ import styles from "./TodoCard.module.scss";
 import TodoForm from "../TodoForm/TodoForm";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { CategoryResponse } from "../../services/category-services";
 dayjs.extend(relativeTime);
 
 interface TodoCard {
   todo: TodoResponse;
   onDelete: (id: number) => unknown;
+  categories: CategoryResponse[];
 }
 
-const TodoCard = ({ todo, onDelete }: TodoCard) => {
+const TodoCard = ({ todo, onDelete, categories }: TodoCard) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -28,14 +30,21 @@ const TodoCard = ({ todo, onDelete }: TodoCard) => {
         <button>X</button>
         <div>{todo.archived}</div>
         <h4>{todo.title}</h4>
-        <div>{todo.category}</div>
+        <div>{todo.category.name}</div>
         <div>Updated: {dayjs(todo.updatedAt).fromNow()}</div>
         <button onClick={() => setEditMode(true)}>Edit</button>
         <button onClick={() => onDelete(todo.id)}>Delete</button>
       </div>
-      {editMode && (
-        <TodoForm onSubmit={onSubmit} formType="EDIT" defaultValues={todo} />
-      )}
+      <div>
+        {editMode && (
+          <TodoForm
+            onTodoSubmit={onSubmit}
+            formType="EDIT"
+            categories={categories}
+            defaultValues={{ title: todo.title, categoryId: todo.category.id }}
+          />
+        )}
+      </div>
     </>
   );
 };
