@@ -9,12 +9,10 @@ export interface TodoResponse {
   title: string;
   category: { id: number; createdAt: string; updatedAt: string; name: string };
   dueAt: string;
-  archived: boolean;
+  isArchived: boolean;
 }
 
 export const createTodo = async (data: TodoFormData) => {
-  console.log(data);
-  console.log(JSON.stringify(data));
   const response = await fetch(`${baseUrl}/todos`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -58,4 +56,18 @@ export const deleteTodoById = async (id: number) => {
     throw new Error(`Failed to delete todo with id ${id}`);
   }
   return true;
+};
+
+export const archiveTodoById = async (id: number) => {
+  const response = await fetch(`${baseUrl}/todos/${id}/archived`, {
+    method: "PATCH",
+    body: JSON.stringify({ isArchived: true }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to archive todo with id ${id}`);
+  }
+  return (await response.json()) as TodoResponse;
 };

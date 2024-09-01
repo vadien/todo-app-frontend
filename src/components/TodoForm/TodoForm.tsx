@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { TodoFormData, schema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CategoryResponse } from "../../services/category-services";
+import styles from "./TodoForm.module.scss";
 
 type FormType = "CREATE" | "EDIT";
 
@@ -14,7 +15,7 @@ interface TodoFormProps {
 
 const TodoForm = ({
   formType = "CREATE",
-  defaultValues = { title: "", categoryId: 1 },
+  defaultValues = { title: "", categoryId: 1, isArchived: false },
   onTodoSubmit,
   categories = [],
 }: TodoFormProps) => {
@@ -27,15 +28,22 @@ const TodoForm = ({
 
   isSubmitSuccessful && reset();
   return (
-    <form onSubmit={handleSubmit(onTodoSubmit)}>
+    <form onSubmit={handleSubmit(onTodoSubmit)} className={styles.TodoForm}>
       <div>
         <label htmlFor="title">Todo: </label>
-        <input id="title" type="text" {...register("title")} />
+        <input
+          id="title"
+          type="text"
+          {...register("title")}
+          className={styles.formInput}
+        />
         {errors?.title && <small>{errors.title.message}</small>}
       </div>
       <div>
-        <label htmlFor="category">Category: </label>
-        <select {...register("categoryId", { valueAsNumber: true })}>
+        <select
+          {...register("categoryId", { valueAsNumber: true })}
+          className={styles.formSelect}
+        >
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
               {category.name}
@@ -43,7 +51,7 @@ const TodoForm = ({
           ))}
         </select>
       </div>
-      <button>{formType === "CREATE" ? "Create" : "Edit"} todo</button>
+      <button>{formType === "CREATE" ? "Create" : "Save"}</button>
     </form>
   );
 };

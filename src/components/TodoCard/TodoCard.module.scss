@@ -1,0 +1,42 @@
+.TodoCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid grey;
+  width: 70%;
+  gap: 6px;
+}
+
+button {
+  border: none;
+  height: 32px;
+  color: #fff;
+  background-color: #0c6cce;
+}
+
+button:hover {
+  color: #fff;
+  background-color: #0458ad;
+}
+
+.checkmark {
+  flex: 0;
+}
+
+.todoTitle {
+  flex: 2;
+}
+
+.todoCategory {
+  flex: 2;
+  font-weight: 600;
+}
+
+.todoTimer {
+  flex: 1;
+}
+
+.changeButton {
+  flex: 0;
+}

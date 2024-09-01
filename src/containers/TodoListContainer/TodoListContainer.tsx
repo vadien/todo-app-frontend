@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { TodoFormData } from "../../components/TodoForm/schema";
 import TodoForm from "../../components/TodoForm/TodoForm";
 import {
+  archiveTodoById,
   createTodo,
   deleteTodoById,
   getAllTodos,
@@ -12,15 +13,25 @@ import {
   getAllCategories,
 } from "../../services/category-services";
 import TodoCard from "../../components/TodoCard/TodoCard";
+import styles from "./TodoListContainer.module.scss";
 
 const TodoListContainer = () => {
   const [todos, setTodos] = useState<TodoResponse[]>([]);
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
+  const [stateChanged, setStateChanged] = useState<boolean>(false);
 
   const onTodoSubmit = async (data: TodoFormData) => {
-    console.log(data);
     createTodo(data)
-      // .then((data) => setTodos([...todos, data]))
+      .then((data) => setTodos([...todos, data]))
+      .catch((e) => console.log(e));
+  };
+
+  const onTodoComplete = (id: number) => {
+    archiveTodoById(id)
+      .then((data) => {
+        const currentTodos = todos.filter((todo) => todo.id !== data.id);
+        setTodos([...currentTodos, data]);
+      })
       .catch((e) => console.log(e));
   };
 
@@ -33,13 +44,9 @@ const TodoListContainer = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  // useEffect(() => {
-  //   getAllCategories()
-  //     .then((data) => setCategories(data))
-  //     .catch((error) => console.log(error));
-  // }, []);
-
-  console.log(todos);
+  useEffect(() => {
+    setStateChanged(false);
+  }, [stateChanged]);
 
   const onDelete = async (id: number) => {
     const isDeleted = await deleteTodoById(id).catch((e: any) => {
@@ -53,13 +60,13 @@ const TodoListContainer = () => {
   };
 
   return (
-    <div>
-      <div className="titleText">TODO</div>
+    <div className={styles.TodoListContainer}>
       <TodoForm onTodoSubmit={onTodoSubmit} categories={categories} />
       {todos.map((todo) => (
         <TodoCard
           key={todo.id}
           todo={todo}
+          onTodoComplete={onTodoComplete}
           onDelete={onDelete}
           categories={categories}
         />

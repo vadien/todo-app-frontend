@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { CategoryFormData, schema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import styles from "./CategoryForm.module.scss";
 
 type FormType = "CREATE" | "EDIT";
 
@@ -27,13 +28,21 @@ const CategoryForm = ({
 
   isSubmitSuccessful && reset();
   return (
-    <form onSubmit={handleSubmit(onCategorySubmit)}>
+    <form
+      onSubmit={handleSubmit(onCategorySubmit)}
+      className={styles.CategoryForm}
+    >
       <div>
-        <label htmlFor="name">Category Name: </label>
-        <input id="name" type="text" {...register("name")} />
+        <label htmlFor="name">Category: </label>
+        <input
+          id="name"
+          type="text"
+          {...register("name")}
+          className={styles.formInput}
+        />
         {errors?.name && <small>{errors.name.message}</small>}
       </div>
-      <button>Create category</button>
+      <button>Create</button>
     </form>
   );
 };

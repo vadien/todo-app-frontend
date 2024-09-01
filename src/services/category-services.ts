@@ -20,7 +20,6 @@ export interface CategoryResponse {
 // CREATE CATEGORY
 
 export const createCategory = async (data: CategoryFormData) => {
-  console.log(data);
   const response = await fetch(`${baseUrl}/categories`, {
     method: "POST",
     body: JSON.stringify(data),

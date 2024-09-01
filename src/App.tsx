@@ -3,19 +3,19 @@ import { createCategory, getAllCategories } from "./services/category-services";
 import TodoListContainer from "./containers/TodoListContainer/TodoListContainer";
 import CategoryForm from "./components/CategoryForm/CategoryForm";
 import { CategoryFormData } from "./components/CategoryForm/schema";
+import "./App.scss";
+import InfoBar from "./components/InfoBar/InfoBar";
 
 function App() {
-  useEffect(() => {
-    getAllCategories().then(console.log).catch(console.error);
-  }, []);
-
   const onCategorySubmit = (data: CategoryFormData) => {
-    createCategory(data).catch((e) => console.log(e));
+    createCategory(data)
+      // .then((data) => setCategories([...categories, data]))
+      .catch((e) => console.log(e));
   };
 
   return (
     <>
-      <h1>Hello World!</h1>
+      <InfoBar />
       <CategoryForm onCategorySubmit={onCategorySubmit} />
       <TodoListContainer />
     </>
