@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  archiveTodoById,
-  TodoResponse,
-  updateTodoById,
-} from "../../services/todo-services";
+import { TodoResponse, updateTodoById } from "../../services/todo-services";
 import { TodoFormData } from "../TodoForm/schema";
 import styles from "./TodoCard.module.scss";
 import TodoForm from "../TodoForm/TodoForm";
@@ -19,7 +15,7 @@ interface TodoCard {
   categories: CategoryResponse[];
 }
 
-const TodoCard = ({ todo, onTodoComplete, onDelete, categories }: TodoCard) => {
+const TodoCard = ({ todo, onDelete, categories }: TodoCard) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
