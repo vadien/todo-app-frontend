@@ -17,8 +17,6 @@ export interface CategoryResponse {
   };
 }
 
-// CREATE CATEGORY
-
 export const createCategory = async (data: CategoryFormData) => {
   const response = await fetch(`${baseUrl}/categories`, {
     method: "POST",
@@ -41,8 +39,6 @@ export const getAllCategories = async () => {
   return (await response.json()) as CategoryResponse[];
 };
 
-// UPDATE CATEGORY
-
 export const updateCategoryById = async (
   id: number,
   data: CategoryFormData
@@ -55,6 +51,7 @@ export const updateCategoryById = async (
     },
   });
   if (!response.ok) {
+    console.log(response);
     throw new Error("Failed to update category");
   }
   return (await response.json()) as CategoryResponse;

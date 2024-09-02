@@ -39,7 +39,7 @@ const TodoCard = ({ todo, onTodoComplete, onDelete, categories }: TodoCard) => {
             onSubmit({
               title: todo.title,
               categoryId: todo.category.id,
-              isArchived: true,
+              archived: true,
             })
           }
         >
@@ -72,7 +72,7 @@ const TodoCard = ({ todo, onTodoComplete, onDelete, categories }: TodoCard) => {
             defaultValues={{
               title: todo.title,
               categoryId: todo.category.id,
-              isArchived: false,
+              archived: false,
             }}
           />
         )}

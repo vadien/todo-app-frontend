@@ -9,7 +9,7 @@ export interface TodoResponse {
   title: string;
   category: { id: number; createdAt: string; updatedAt: string; name: string };
   dueAt: string;
-  isArchived: boolean;
+  archived: boolean;
 }
 
 export const createTodo = async (data: TodoFormData) => {
@@ -61,7 +61,7 @@ export const deleteTodoById = async (id: number) => {
 export const archiveTodoById = async (id: number) => {
   const response = await fetch(`${baseUrl}/todos/${id}/archived`, {
     method: "PATCH",
-    body: JSON.stringify({ isArchived: true }),
+    body: JSON.stringify({ archived: true }),
     headers: {
       "Content-Type": "application/json",
     },
