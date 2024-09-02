@@ -6,6 +6,12 @@ import TodoForm from "../TodoForm/TodoForm";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { CategoryResponse } from "../../services/category-services";
+import {
+  CheckCircle,
+  Circle,
+  PencilSimple,
+  Trash,
+} from "@phosphor-icons/react";
 dayjs.extend(relativeTime);
 
 interface TodoCard {
@@ -39,7 +45,7 @@ const TodoCard = ({ todo, onDelete, categories }: TodoCard) => {
             })
           }
         >
-          X
+          {todo.archived ? <CheckCircle size={32} /> : <Circle size={32} />}
         </button>
         <div className={styles.todoTitle}>{todo.title}</div>
         <div className={styles.todoCategory}>{todo.category.name}</div>
@@ -50,13 +56,13 @@ const TodoCard = ({ todo, onDelete, categories }: TodoCard) => {
           className={styles.changeButton}
           onClick={() => setEditMode(!editMode)}
         >
-          Edit
+          <PencilSimple size={32} />
         </button>
         <button
           className={styles.changeButton}
           onClick={() => onDelete(todo.id)}
         >
-          Delete
+          <Trash size={32} />
         </button>
       </div>
       <div>

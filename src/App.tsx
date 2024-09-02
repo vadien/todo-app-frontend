@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { createCategory, getAllCategories } from "./services/category-services";
+import { createCategory } from "./services/category-services";
 import TodoListContainer from "./containers/TodoListContainer/TodoListContainer";
 import CategoryForm from "./components/CategoryForm/CategoryForm";
 import { CategoryFormData } from "./components/CategoryForm/schema";
@@ -15,6 +14,7 @@ function App() {
 
   return (
     <>
+      <title>Page title</title>
       <InfoBar />
       <CategoryForm onCategorySubmit={onCategorySubmit} />
       <TodoListContainer />

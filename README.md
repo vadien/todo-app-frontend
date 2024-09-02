@@ -65,6 +65,7 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 ##### 2024-09-02
 
 - Update typing and schema data to match backend
+- Update README
 
 ##### 2024-09-01
 

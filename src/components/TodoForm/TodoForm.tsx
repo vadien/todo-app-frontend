@@ -3,6 +3,7 @@ import { TodoFormData, schema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CategoryResponse } from "../../services/category-services";
 import styles from "./TodoForm.module.scss";
+import { Plus } from "@phosphor-icons/react";
 
 type FormType = "CREATE" | "EDIT";
 
@@ -51,7 +52,9 @@ const TodoForm = ({
           ))}
         </select>
       </div>
-      <button>{formType === "CREATE" ? "Create" : "Save"}</button>
+      <button>
+        <Plus size={32} />
+      </button>
     </form>
   );
 };

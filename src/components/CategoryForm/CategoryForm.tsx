@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { CategoryFormData, schema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./CategoryForm.module.scss";
+import { Plus } from "@phosphor-icons/react";
 
 type FormType = "CREATE" | "EDIT";
 
@@ -42,7 +43,9 @@ const CategoryForm = ({
         />
         {errors?.name && <small>{errors.name.message}</small>}
       </div>
-      <button>Create</button>
+      <button>
+        <Plus size={32} />
+      </button>
     </form>
   );
 };
