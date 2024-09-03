@@ -8,8 +8,10 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { CategoryResponse } from "../../services/category-services";
 import {
   CheckCircle,
+  CheckSquare,
   Circle,
   PencilSimple,
+  Square,
   Trash,
 } from "@phosphor-icons/react";
 dayjs.extend(relativeTime);
@@ -17,7 +19,7 @@ dayjs.extend(relativeTime);
 interface TodoCard {
   todo: TodoResponse;
   onTodoComplete: (data: TodoResponse) => unknown;
-  onDelete: (id: number) => unknown;
+  onDelete: (id: number, archived: boolean) => unknown;
   categories: CategoryResponse[];
 }
 
@@ -26,7 +28,6 @@ const TodoCard = ({ todo, onTodoComplete, onDelete, categories }: TodoCard) => {
   const [error, setError] = useState<Error | null>(null);
 
   const onSubmit = (data: TodoFormData) => {
-    console.log(data);
     updateTodoById(todo.id, data)
       .then((response) => {
         setEditMode(false);
@@ -45,11 +46,11 @@ const TodoCard = ({ todo, onTodoComplete, onDelete, categories }: TodoCard) => {
             onSubmit({
               title: todo.title,
               categoryId: todo.category.id,
-              archived: true,
+              completed: !todo.completed,
             })
           }
         >
-          {todo.archived ? <CheckCircle size={32} /> : <Circle size={32} />}
+          {todo.completed ? <CheckSquare size={32} /> : <Square size={32} />}
         </button>
         <div className={styles.todoTitle}>{todo.title}</div>
         <div className={styles.todoCategory}>{todo.category.name}</div>
@@ -64,7 +65,7 @@ const TodoCard = ({ todo, onTodoComplete, onDelete, categories }: TodoCard) => {
         </button>
         <button
           className={styles.changeButton}
-          onClick={() => onDelete(todo.id)}
+          onClick={() => onDelete(todo.id, todo.completed)}
         >
           <Trash size={32} />
         </button>
@@ -78,7 +79,7 @@ const TodoCard = ({ todo, onTodoComplete, onDelete, categories }: TodoCard) => {
             defaultValues={{
               title: todo.title,
               categoryId: todo.category.id,
-              archived: false,
+              completed: false,
             }}
           />
         )}

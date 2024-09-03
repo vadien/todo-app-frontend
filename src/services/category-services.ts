@@ -34,7 +34,7 @@ export const createCategory = async (data: CategoryFormData) => {
 export const getAllCategories = async () => {
   const response = await fetch(`${baseUrl}/categories`);
   if (!response.ok) {
-    throw new Error("Failed to fetch");
+    throw new Error("Failed to fetch from API");
   }
   return (await response.json()) as CategoryResponse[];
 };

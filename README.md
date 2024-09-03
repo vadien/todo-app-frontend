@@ -38,14 +38,14 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 - Task category creation
 - Dynamic page updates on events
 - Data validation
-- Displaying errors from backend
+- Displaying errors from backend to user
 
 ---
 
 ## Known issues
 
-- No user feedback on todo completion
-- Created categories do not immediately become available for use
+- Created categories require refresh before available for use
+- Duplicate todo displayed after edit if archive boolean not changed
 
 ---
 
@@ -53,6 +53,7 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 
 (Data-related goals listed in the [backend readme](https://github.com/vadien/todo-app-backend))
 
+- Improve design on thinner mobile displays
 - Component testing using React Testing Library
 - Implement CI/CD using github workflow
 - Docker deployment to cloud
@@ -65,7 +66,10 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 
 ##### 2024-09-03
 
--
+- Display completed todos separately
+- Correctly update state on todo update
+- Require delete confirmation if todo is incomplete
+- Standardise styling across elements
 
 ##### 2024-09-02
 

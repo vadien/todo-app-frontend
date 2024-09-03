@@ -16,7 +16,7 @@ interface TodoFormProps {
 
 const TodoForm = ({
   formType = "CREATE",
-  defaultValues = { title: "", categoryId: 1, archived: false },
+  defaultValues = { title: "", categoryId: 1, completed: false },
   onTodoSubmit,
   categories = [],
 }: TodoFormProps) => {

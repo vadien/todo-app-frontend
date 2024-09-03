@@ -9,6 +9,7 @@ export interface TodoResponse {
   title: string;
   category: { id: number; createdAt: string; updatedAt: string; name: string };
   dueAt: string;
+  completed: boolean;
   archived: boolean;
 }
 
@@ -21,7 +22,7 @@ export const createTodo = async (data: TodoFormData) => {
     },
   });
   if (!response.ok) {
-    throw new Error("Failed to create todo!");
+    throw new Error("Failed to create todo");
   }
   return (await response.json()) as TodoResponse;
 };
@@ -29,7 +30,7 @@ export const createTodo = async (data: TodoFormData) => {
 export const getAllTodos = async () => {
   const response = await fetch(`${baseUrl}/todos`);
   if (!response.ok) {
-    throw new Error("Failed to fetch");
+    throw new Error("Failed to fetch from API");
   }
   return (await response.json()) as TodoResponse[];
 };
@@ -43,7 +44,7 @@ export const updateTodoById = async (id: number, data: TodoFormData) => {
     },
   });
   if (!response.ok) {
-    throw new Error("Failed to update");
+    throw new Error(`Failed to update todo with id ${id}`);
   }
   return (await response.json()) as TodoResponse;
 };
@@ -58,16 +59,16 @@ export const deleteTodoById = async (id: number) => {
   return true;
 };
 
-export const archiveTodoById = async (id: number) => {
-  const response = await fetch(`${baseUrl}/todos/${id}/archived`, {
+export const completeTodoById = async (id: number) => {
+  const response = await fetch(`${baseUrl}/todos/${id}/completed`, {
     method: "PATCH",
-    body: JSON.stringify({ archived: true }),
+    body: JSON.stringify({ completed: true }),
     headers: {
       "Content-Type": "application/json",
     },
   });
   if (!response.ok) {
-    throw new Error(`Failed to archive todo with id ${id}`);
+    throw new Error(`Failed to complete todo with id ${id}`);
   }
   return (await response.json()) as TodoResponse;
 };

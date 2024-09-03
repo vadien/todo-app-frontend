@@ -1,3 +1,7 @@
+.Error {
+  color: red;
+}
+
 .TodoListContainer,
 .archiveContainer {
   display: flex;
@@ -8,6 +12,7 @@
 
 .archiveContainer {
   color: grey;
+  padding-top: 30px;
 }
 
 .archiveContainer button {
