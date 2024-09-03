@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { TodoFormData } from "../../components/TodoForm/schema";
 import TodoForm from "../../components/TodoForm/TodoForm";
 import {
-  archiveTodoById,
   createTodo,
   deleteTodoById,
   getAllTodos,
@@ -17,27 +16,33 @@ import styles from "./TodoListContainer.module.scss";
 
 const TodoListContainer = () => {
   const [todos, setTodos] = useState<TodoResponse[]>([]);
+  const [currentTodos, setCurrentTodos] = useState<TodoResponse[]>([]);
+  const [archivedTodos, setArchivedTodos] = useState<TodoResponse[]>([]);
   const [categories, setCategories] = useState<CategoryResponse[]>([]);
-  const [stateChanged, setStateChanged] = useState<boolean>(false);
 
   const onTodoSubmit = async (data: TodoFormData) => {
     createTodo(data)
-      .then((data) => setTodos([...todos, data]))
-      .catch((e) => console.log(e));
-  };
-
-  const onTodoComplete = (id: number) => {
-    archiveTodoById(id)
       .then((data) => {
-        const currentTodos = todos.filter((todo) => todo.id !== data.id);
-        setTodos([...currentTodos, data]);
+        const updatedTodos = todos.filter((todo) => todo.archived !== true);
+        setCurrentTodos([data, ...updatedTodos]);
       })
       .catch((e) => console.log(e));
   };
 
+  const onTodoComplete = (data: TodoResponse) => {
+    if (data.archived) {
+      const archivedTodos = todos.filter((todo) => todo.archived == true);
+      setArchivedTodos([...archivedTodos, data]);
+    } else {
+      setCurrentTodos([data, ...todos]);
+    }
+  };
+
   useEffect(() => {
     getAllTodos()
-      .then((data) => setTodos(data))
+      .then((data) => {
+        setTodos(data);
+      })
       .catch((error) => console.log(error));
     getAllCategories()
       .then((data) => setCategories(data))
@@ -45,8 +50,9 @@ const TodoListContainer = () => {
   }, []);
 
   useEffect(() => {
-    setStateChanged(false);
-  }, [stateChanged]);
+    setCurrentTodos(todos.filter((todo) => todo.archived !== true));
+    setArchivedTodos(todos.filter((todo) => todo.archived == true));
+  }, [todos]);
 
   const onDelete = async (id: number) => {
     const isDeleted = await deleteTodoById(id).catch((e: any) => {
@@ -59,19 +65,37 @@ const TodoListContainer = () => {
     }
   };
 
+  // console.log("current render");
+  // console.log(currentTodos);
+  // console.log(archivedTodos);
+
   return (
-    <div className={styles.TodoListContainer}>
-      <TodoForm onTodoSubmit={onTodoSubmit} categories={categories} />
-      {todos.map((todo) => (
-        <TodoCard
-          key={todo.id}
-          todo={todo}
-          onTodoComplete={onTodoComplete}
-          onDelete={onDelete}
-          categories={categories}
-        />
-      ))}
-    </div>
+    <>
+      <h3>{!todos.length && "Relax! You're all caught up."}</h3>
+      <div className={styles.TodoListContainer}>
+        <TodoForm onTodoSubmit={onTodoSubmit} categories={categories} />
+        {currentTodos.map((todo) => (
+          <TodoCard
+            key={todo.id}
+            todo={todo}
+            onTodoComplete={onTodoComplete}
+            onDelete={onDelete}
+            categories={categories}
+          />
+        ))}
+      </div>
+      <div className={styles.archiveContainer}>
+        {archivedTodos.map((todo) => (
+          <TodoCard
+            key={todo.id}
+            todo={todo}
+            onTodoComplete={onTodoComplete}
+            onDelete={onDelete}
+            categories={categories}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 

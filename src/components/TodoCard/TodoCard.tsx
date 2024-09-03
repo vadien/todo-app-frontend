@@ -16,24 +16,28 @@ dayjs.extend(relativeTime);
 
 interface TodoCard {
   todo: TodoResponse;
-  onTodoComplete: (id: number) => unknown;
+  onTodoComplete: (data: TodoResponse) => unknown;
   onDelete: (id: number) => unknown;
   categories: CategoryResponse[];
 }
 
-const TodoCard = ({ todo, onDelete, categories }: TodoCard) => {
+const TodoCard = ({ todo, onTodoComplete, onDelete, categories }: TodoCard) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
   const onSubmit = (data: TodoFormData) => {
     console.log(data);
     updateTodoById(todo.id, data)
-      .then(() => setEditMode(false))
+      .then((response) => {
+        setEditMode(false);
+        onTodoComplete(response);
+      })
       .catch((e: Error) => setError(e));
   };
 
   return (
     <>
+      {error && <div className={styles.errDisplay}>{error.message}</div>}
       <div key={todo.id} className={styles.TodoCard}>
         <button
           className={styles.checkmark}

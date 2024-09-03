@@ -14,7 +14,6 @@ function App() {
 
   return (
     <>
-      <title>Page title</title>
       <InfoBar />
       <CategoryForm onCategorySubmit={onCategorySubmit} />
       <TodoListContainer />

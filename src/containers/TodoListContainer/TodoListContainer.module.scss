@@ -1,6 +1,18 @@
-.TodoListContainer {
+.TodoListContainer,
+.archiveContainer {
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
+}
+
+.archiveContainer {
+  color: grey;
+}
+
+.archiveContainer button {
+  background-color: grey;
+}
+.archiveContainer button:hover {
+  background-color: #606060;
 }

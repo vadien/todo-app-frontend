@@ -18,6 +18,7 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 - [react-hook-form](https://react-hook-form.com/)
 - [Zod](https://zod.dev/) (data validation)
 - [DayJS](https://day.js.org/) (Time display)
+- [Phosphoricons](https://phosphoricons.com/) (Icons)
 
 ---
 
@@ -62,10 +63,15 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 
 ## Change logs
 
+##### 2024-09-03
+
+-
+
 ##### 2024-09-02
 
 - Update typing and schema data to match backend
 - Update README
+- Implement icons
 
 ##### 2024-09-01
 
