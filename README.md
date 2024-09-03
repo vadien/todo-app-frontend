@@ -12,13 +12,21 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 
 ##### Stack:
 
-- ReactJS
+- ReactJS 18
 - Sass (SCSS)
 - HTML5
 - [react-hook-form](https://react-hook-form.com/)
 - [Zod](https://zod.dev/) (data validation)
 - [DayJS](https://day.js.org/) (Time display)
 - [Phosphoricons](https://phosphoricons.com/) (Icons)
+
+---
+
+## Build Steps
+
+- Start by getting the backend running using the steps here: [todo-api](https://github.com/vadien/todo-app-backend)
+- Clone this repo to a local folder and npm to install (`npm install`)
+- Either use `npm run dev` for React Strict Mode or `npm run build` to build the project, which can then be run in your browser
 
 ---
 
@@ -70,6 +78,8 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 - Correctly update state on todo update
 - Require delete confirmation if todo is incomplete
 - Standardise styling across elements
+- Disable edit on completed tasks
+- Implement frontend sort on returned todos
 
 ##### 2024-09-02
 

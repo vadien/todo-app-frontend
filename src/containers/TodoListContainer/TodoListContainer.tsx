@@ -22,7 +22,7 @@ const TodoListContainer = () => {
   const onTodoSubmit = async (data: TodoFormData) => {
     createTodo(data)
       .then((data) => {
-        setTodos([data, ...todos]);
+        setTodos(todoSort([data, ...todos]));
       })
       .catch((e) => setError(e));
   };
@@ -31,15 +31,22 @@ const TodoListContainer = () => {
     console.log("Todo complete!");
     getAllTodos()
       .then((data) => {
-        setTodos(data);
+        setTodos(todoSort(data));
       })
       .catch((error) => setError(error));
+  };
+
+  const todoSort = (data: TodoResponse[]) => {
+    const sortedData = data.sort((a, b) => {
+      return a.completed === b.completed ? 0 : a.completed ? 1 : -1;
+    });
+    return sortedData;
   };
 
   useEffect(() => {
     getAllTodos()
       .then((data) => {
-        setTodos(data);
+        setTodos(todoSort(data));
       })
       .catch((error) => setError(error));
     getAllCategories()
@@ -67,7 +74,7 @@ const TodoListContainer = () => {
       {error && <h1 className={styles.Error}>Error: {error.message}</h1>}
       <div className={styles.TodoListContainer}>
         <TodoForm onTodoSubmit={onTodoSubmit} categories={categories} />
-        {!todos.length && !error && <h3>Relax! You're all caught up.</h3>}
+        {/* {!todos.length && !error && <h3>Relax! You're all caught up.</h3>} */}
         {todos.map((todo) => (
           <TodoCard
             key={todo.id}

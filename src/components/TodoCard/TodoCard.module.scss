@@ -11,6 +11,14 @@
   gap: 6px;
 }
 
+.TodoCardCompleted {
+  color: grey;
+}
+
+.TodoCardCompleted button {
+  background-color: grey;
+}
+
 button {
   border: none;
   height: 32px;
@@ -22,6 +30,11 @@ button {
 button:hover {
   color: #fff;
   background-color: #0458ad;
+}
+
+button:disabled {
+  background-color: grey;
+  color: grey;
 }
 
 .checkmark {

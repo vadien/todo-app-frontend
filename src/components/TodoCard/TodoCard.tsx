@@ -39,7 +39,14 @@ const TodoCard = ({ todo, onTodoComplete, onDelete, categories }: TodoCard) => {
   return (
     <>
       {error && <div className={styles.errDisplay}>{error.message}</div>}
-      <div key={todo.id} className={styles.TodoCard}>
+      <div
+        key={todo.id}
+        className={
+          todo.completed
+            ? `${styles.TodoCard} ${styles.TodoCardCompleted}`
+            : styles.TodoCard
+        }
+      >
         <button
           className={styles.checkmark}
           onClick={() =>
@@ -60,6 +67,7 @@ const TodoCard = ({ todo, onTodoComplete, onDelete, categories }: TodoCard) => {
         <button
           className={styles.changeButton}
           onClick={() => setEditMode(!editMode)}
+          disabled={todo.completed}
         >
           <PencilSimple size={32} />
         </button>
