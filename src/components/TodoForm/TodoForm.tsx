@@ -29,37 +29,41 @@ const TodoForm = ({
 
   isSubmitSuccessful && reset();
   return (
-    <form onSubmit={handleSubmit(onTodoSubmit)} className={styles.TodoForm}>
-      <div>
-        <label htmlFor="title">Todo: </label>
-        <input
-          id="title"
-          type="text"
-          {...register("title")}
-          className={styles.formInput}
-        />
+    <>
+      <form onSubmit={handleSubmit(onTodoSubmit)} className={styles.TodoForm}>
+        <div>
+          <label htmlFor="title">Todo: </label>
+          <input
+            id="title"
+            type="text"
+            {...register("title")}
+            className={styles.formInput}
+          />
+        </div>
+        <div>
+          <select
+            {...register("categoryId", { valueAsNumber: true })}
+            className={styles.formSelect}
+          >
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button>
+          {formType === "CREATE" ? (
+            <Plus size={32} />
+          ) : (
+            <FloppyDiskBack size={32} />
+          )}
+        </button>
+      </form>
+      <div className={styles.errors}>
         {errors?.title && <small>{errors.title.message}</small>}
       </div>
-      <div>
-        <select
-          {...register("categoryId", { valueAsNumber: true })}
-          className={styles.formSelect}
-        >
-          {categories.map((category) => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <button>
-        {formType === "CREATE" ? (
-          <Plus size={32} />
-        ) : (
-          <FloppyDiskBack size={32} />
-        )}
-      </button>
-    </form>
+    </>
   );
 };
 

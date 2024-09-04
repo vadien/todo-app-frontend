@@ -4,7 +4,13 @@
   justify-content: center;
   gap: 2px;
   height: 32px;
+  padding-bottom: 8px;
 }
 .formInput {
   height: 26px;
+}
+
+.errors {
+  color: red;
+  padding-bottom: 8px;
 }

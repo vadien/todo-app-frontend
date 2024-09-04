@@ -3,6 +3,7 @@ import { CategoryFormData, schema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./CategoryForm.module.scss";
 import { FloppyDiskBack, Plus } from "@phosphor-icons/react";
+import { CategoryResponse } from "../../services/category-services";
 
 type FormType = "CREATE" | "EDIT";
 
@@ -29,28 +30,32 @@ const CategoryForm = ({
 
   isSubmitSuccessful && reset();
   return (
-    <form
-      onSubmit={handleSubmit(onCategorySubmit)}
-      className={styles.CategoryForm}
-    >
-      <div>
-        <label htmlFor="name">Category: </label>
-        <input
-          id="name"
-          type="text"
-          {...register("name")}
-          className={styles.formInput}
-        />
+    <>
+      <form
+        onSubmit={handleSubmit(onCategorySubmit)}
+        className={styles.CategoryForm}
+      >
+        <div>
+          <label htmlFor="name">Category: </label>
+          <input
+            id="name"
+            type="text"
+            {...register("name")}
+            className={styles.formInput}
+          />
+        </div>
+        <button>
+          {formType === "CREATE" ? (
+            <Plus size={32} />
+          ) : (
+            <FloppyDiskBack size={32} />
+          )}
+        </button>
+      </form>
+      <div className={styles.errors}>
         {errors?.name && <small>{errors.name.message}</small>}
       </div>
-      <button>
-        {formType === "CREATE" ? (
-          <Plus size={32} />
-        ) : (
-          <FloppyDiskBack size={32} />
-        )}
-      </button>
-    </form>
+    </>
   );
 };
 

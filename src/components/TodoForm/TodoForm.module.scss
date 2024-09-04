@@ -4,6 +4,7 @@
   justify-content: center;
   gap: 2px;
   height: 32px;
+  padding-bottom: 8px;
 }
 
 .formInput {
@@ -12,4 +13,9 @@
 
 .formSelect {
   height: 32px;
+}
+
+.errors {
+  color: red;
+  padding-bottom: 16px;
 }

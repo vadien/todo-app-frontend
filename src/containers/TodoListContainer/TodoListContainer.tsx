@@ -7,16 +7,16 @@ import {
   getAllTodos,
   TodoResponse,
 } from "../../services/todo-services";
-import {
-  CategoryResponse,
-  getAllCategories,
-} from "../../services/category-services";
+import { CategoryResponse } from "../../services/category-services";
 import TodoCard from "../../components/TodoCard/TodoCard";
 import styles from "./TodoListContainer.module.scss";
 
-const TodoListContainer = () => {
+interface TodoListContainerProps {
+  categories: CategoryResponse[];
+}
+
+const TodoListContainer = ({ categories }: TodoListContainerProps) => {
   const [todos, setTodos] = useState<TodoResponse[]>([]);
-  const [categories, setCategories] = useState<CategoryResponse[]>([]);
   const [error, setError] = useState<Error | null>(null);
 
   const onTodoSubmit = async (data: TodoFormData) => {
@@ -28,7 +28,6 @@ const TodoListContainer = () => {
   };
 
   const onTodoComplete = () => {
-    console.log("Todo complete!");
     getAllTodos()
       .then((data) => {
         setTodos(todoSort(data));
@@ -48,9 +47,6 @@ const TodoListContainer = () => {
       .then((data) => {
         setTodos(todoSort(data));
       })
-      .catch((error) => setError(error));
-    getAllCategories()
-      .then((data) => setCategories(data))
       .catch((error) => setError(error));
   }, []);
 

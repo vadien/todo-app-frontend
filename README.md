@@ -26,7 +26,7 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 
 - Start by getting the backend running using the steps here: [todo-api](https://github.com/vadien/todo-app-backend)
 - Clone this repo to a local folder and npm to install (`npm install`)
-- Either use `npm run dev` for React Strict Mode or `npm run build` to build the project, which can then be run in your browser
+- Either use `npm run dev` for React Strict Mode or `npm run build` to build the project
 
 ---
 
@@ -61,7 +61,7 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 
 (Data-related goals listed in the [backend readme](https://github.com/vadien/todo-app-backend))
 
-- Improve design on thinner mobile displays
+- Full responsive design for mobile displays
 - Component testing using React Testing Library
 - Implement CI/CD using github workflow
 - Docker deployment to cloud
@@ -72,6 +72,11 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 
 ## Change logs
 
+##### 2024-09-04
+
+- Refactor state handling
+- Improve error styling and clarity
+
 ##### 2024-09-03
 
 - Display completed todos separately
@@ -80,6 +85,7 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 - Standardise styling across elements
 - Disable edit on completed tasks
 - Implement frontend sort on returned todos
+- Update favicon/page title
 
 ##### 2024-09-02
 
