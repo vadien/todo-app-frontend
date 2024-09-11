@@ -3,7 +3,6 @@ import { CategoryFormData, schema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "./CategoryForm.module.scss";
 import { FloppyDiskBack, Plus } from "@phosphor-icons/react";
-import { CategoryResponse } from "../../services/category-services";
 
 type FormType = "CREATE" | "EDIT";
 

@@ -52,8 +52,7 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 
 ## Known issues
 
-- Created categories require refresh before available for use
-- Duplicate todo displayed after edit if archive boolean not changed
+None! 🥳
 
 ---
 
@@ -64,9 +63,10 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 - Full responsive design for mobile displays
 - Component testing using React Testing Library
 - Implement CI/CD using github workflow
-- Docker deployment to cloud
+- Deploy with Docker
 - Styling pass
 - Full refactoring pass
+- Accessibility pass
 
 ---
 

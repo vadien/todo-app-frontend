@@ -7,9 +7,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { CategoryResponse } from "../../services/category-services";
 import {
-  CheckCircle,
   CheckSquare,
-  Circle,
   PencilSimple,
   Square,
   Trash,

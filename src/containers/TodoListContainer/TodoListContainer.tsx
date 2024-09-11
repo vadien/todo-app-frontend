@@ -19,6 +19,21 @@ const TodoListContainer = ({ categories }: TodoListContainerProps) => {
   const [todos, setTodos] = useState<TodoResponse[]>([]);
   const [error, setError] = useState<Error | null>(null);
 
+  useEffect(() => {
+    getAllTodos()
+      .then((data) => {
+        setTodos(todoSort(data));
+      })
+      .catch((error) => setError(error));
+  }, []);
+
+  const todoSort = (data: TodoResponse[]) => {
+    const sortedData = data.sort((a, b) => {
+      return a.completed === b.completed ? 0 : a.completed ? 1 : -1;
+    });
+    return sortedData;
+  };
+
   const onTodoSubmit = async (data: TodoFormData) => {
     createTodo(data)
       .then((data) => {
@@ -34,21 +49,6 @@ const TodoListContainer = ({ categories }: TodoListContainerProps) => {
       })
       .catch((error) => setError(error));
   };
-
-  const todoSort = (data: TodoResponse[]) => {
-    const sortedData = data.sort((a, b) => {
-      return a.completed === b.completed ? 0 : a.completed ? 1 : -1;
-    });
-    return sortedData;
-  };
-
-  useEffect(() => {
-    getAllTodos()
-      .then((data) => {
-        setTodos(todoSort(data));
-      })
-      .catch((error) => setError(error));
-  }, []);
 
   const onDelete = async (id: number, completed: boolean) => {
     if (!completed && !confirm("Delete incomplete task?")) {
