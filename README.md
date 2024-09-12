@@ -4,6 +4,8 @@
 
 [Link to live]() (NOT YET DEPLOYED)
 
+![Sample todo image](public/readme-hero.png)
+
 ---
 
 ## Requirements / Purpose
@@ -52,7 +54,7 @@ This project is the frontend/UI for a Todo list app. The aim is to create a func
 
 ## Known issues
 
-None! 🥳
+Not yet deployed!
 
 ---
 
@@ -112,6 +114,7 @@ None! 🥳
 ## What did you struggle with?
 
 - Implementing Zod validation for a select dropdown in a React form caused issues that took a while to nail down due to lack of feedback from the validator. Lesson: when code fails, investigate from the first point the error may be caused rather than working backwards from the point of failure.
+- Deploying has been such a pain! At first I attempted to deploy the backend to an AWS EC2 instance and the frontend to Github Pages, but that creates issues with HTTPS/HTTP mixing which I don't have the knowledge to diagnose. Then I tried to deploy the frontend to the same EC2 instance, which ended up not working AND breaking the backend! Docker is definitely the next step, I just need a little more time to figure that out.
 
 ---
 
